@@ -1,0 +1,26 @@
+@(graph: Graph, allPairs: List[String], allBrokers: List[String])(implicit messages: Messages)
+
+@import helper._
+
+@script = { @graphjs(graph, "brokerを2つ以上選んで、drawボタンを押してください。") }
+
+@main("SWAPxSWAP", script) {
+
+<h1>swap graph - diff</h1>
+
+@form(action = routes.Application.diff("", List(""))) {
+    @select(
+        graph.formData("pair"),
+        options(allPairs)
+    )
+    @select(
+        graph.formData("brokers"),
+        options(allBrokers),
+        'multiple -> "multiple"
+    )
+    <input type="submit" value="draw">
+}
+
+<div id="chart"></div>
+
+}

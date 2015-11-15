@@ -1,0 +1,36 @@
+@(graph: Graph, errorMsg: String)
+
+
+<script type="text/javascript">
+
+    if( ! "@Html(graph.jsondata)" ) {
+       document.getElementById('chart').innerHTML = "<p>@Html(errorMsg)</p>";
+    }
+    else {
+        google.load('visualization', '1.0', {'packages':['corechart']});
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = new google.visualization.DataTable(
+              {
+                cols: [ @Html(graph.cols) ],
+                rows: [ @Html(graph.jsondata) ]
+              }, 0.6
+            );
+
+            var options = {
+                title: '@Html(graph.pair) @Html(graph.brokers.mkString("-"))',
+                hAxis: {
+                    title: 'Date'
+                },
+                vAxis: {
+                    title: 'Value'
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart'));
+            chart.draw(data, options);
+        }
+    }
+
+</script>

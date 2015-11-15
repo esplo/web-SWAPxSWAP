@@ -1,0 +1,40 @@
+@(title: String, scripts: Html = Html(""))(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@title</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.min.css"))'>
+    <link rel='stylesheet' href='@routes.Assets.versioned("stylesheets/main.css")' />
+    <link rel='stylesheet' href='@routes.Assets.versioned("stylesheets/menu.css")' />
+</head>
+<body>
+
+<!-- top menu -->
+<div id='cssmenu'>
+    <ul>
+        <li><a href='@{routes.Application.index()}'>Home</a></li>
+        <li><a href='#'>Graph</a>
+            <ul>
+                <li><a href='@{routes.Application.simple(None, List())}'>Simple</a></li>
+                <li><a href='@{routes.Application.diff("USD/JPY", List())}'>Diff</a></li>
+            </ul>
+        </li>
+        <li><a href='https://github.com/esplo'>Contact</a></li>
+    </ul>
+</div>
+
+<!-- main content -->
+<div class="content">
+@content
+</div>
+
+<!-- load -->
+<script type="text/javascript" src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
+@scripts
+<script type="text/javascript" src='@routes.Assets.versioned("javascripts/menu.js")'></script>
+
+</body>
+</html>
